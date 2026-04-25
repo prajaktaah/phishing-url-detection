@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>URL Detector Dashboard</title>
+
+  <style>
+    html, body, * {
+      cursor: url("cursor.png") 16 16, auto !important;
+    }
+  </style>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+
+<body>
+
+<!-- ===== TOP BAR ===== -->
+<div class="top-grid">
+  <div class="box">
+    <label>From</label>
+    <input type="date" id="startDate">
+  </div>
+
+  <div class="box">
+    <label>To</label>
+    <input type="date" id="endDate">
+  </div>
+
+  <div class="title-box">
+    <img src="PhishPhry.png" alt="PhishPhry Logo" class="title-logo">
+  </div>
+
+  <div class="box">
+    <button id="applyFilters">Apply Filters</button>
+    <button id="clearFilters">Clear Filters</button>
+    <button id="toggleDark">Toggle Dark Mode</button>
+  </div>
+</div>
+
+<!-- ===== SECOND ROW ===== -->
+<div class="second-grid">
+  <div class="box">
+    <label>Category</label>
+    <select id="categoryFilter">
+      <option value="ALL" selected>All Types</option>
+      <option value="Phishing">Phishing</option>
+      <option value="Malware">Malware</option>
+      <option value="IDN">IDN</option>
+      <option value="Safe">Safe</option>
+    </select>
+  </div>
+
+  <div class="box wide">
+    <label>Check URL</label>
+    <div class="check-row">
+      <input type="text" id="checkUrlInput" placeholder="Enter URL to check">
+      <button id="checkUrlBtn">Check</button>
+    </div>
+
+    <div id="checkResult" class="result-card hidden"></div>
+  </div>
+
+  <!-- AVG RISK MOVED HERE (REPLACES % SUCCESS) -->
+  <div class="kpi"  data-tooltip="Average risk percentage of all detected malicious URLs in the current view">
+    <span>Avg Risk</span>
+    <strong id="avgRisk">0%</strong>
+  </div>
+</div>
+
+<!-- ===== KPI ROW (EQUAL WIDTH: 3 KPIs) ===== -->
+<!-- ===== KPI ROW ===== -->
+<div class="kpi-grid">
+
+  <div class="kpi"
+       data-tooltip="Total number of URLs scanned after applying filters">
+    <span>Total URLs</span>
+    <strong id="totalScanned">0</strong>
+  </div>
+
+  <div class="kpi danger"
+       data-tooltip="Number of URLs detected as phishing">
+    <span>Malicious</span>
+    <strong id="totalMalicious">0</strong>
+  </div>
+
+  <div class="kpi safe"
+       data-tooltip="Number of URLs classified as safe">
+    <span>Safe</span>
+    <strong id="totalSafe">0</strong>
+  </div>
+
+</div>
+
+<!-- ===== CHARTS ===== -->
+<div class="charts-grid">
+  <div class="chart">
+    <div class="chart-title" id="barChartTitle">
+      Scan Category Distribution
+    </div>
+    <canvas id="barChart"></canvas>
+  </div>
+
+  <div class="chart">
+    <div class="chart-title" id="pieChartTitle">
+      Threat Breakdown
+    </div>
+    <canvas id="pieChart"></canvas>
+  </div>
+
+  <div class="chart wide">
+    <div class="chart-title" id="lineChartTitle">
+      Scan Activity 
+    </div>
+    <canvas id="lineChart"></canvas>
+  </div>
+</div>
+
+<!-- ===== TABLE ===== -->
+<div class="table-box">
+  <div class="table-title">Scan Logs</div>
+  <table>
+    <thead>
+      <tr>
+        <th>URL</th>
+        <th>Category</th>
+        <th>Status</th>
+        <th>Time</th>
+      </tr>
+    </thead>
+    <tbody id="logTable"></tbody>
+  </table>
+</div>
+
+<script src="chart.js"></script>
+<script src="dashboard.js"></script>
+
+</body>
+</html>
